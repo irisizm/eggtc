@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #2c3e50;
+            --secondary-light: #ecf0f1;
+            --accent-color: #e74c3c;
+            --text-color: #34495e;
+            --box-bg: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --scroll-thumb: #e74c3c;
+            --scroll-track: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a252f 100%);
+            color: var(--secondary-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .container {
+            background-color: var(--box-bg);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px) rotateX(-10deg);
+            animation: revealContainer 1.5s ease-out forwards;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        @keyframes revealContainer {
+            from { opacity: 0; transform: translateY(50px) rotateX(-20deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+
+        .container::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: var(--scroll-track);
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background-color: var(--scroll-thumb);
+            border-radius: 10px;
+            border: 3px solid var(--box-bg);
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background-color: var(--accent-color);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            font-size: 3.2em;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(231, 76, 60, 0.6);
+            letter-spacing: 2px;
+            animation: flicker 2s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+
+        p {
+            color: var(--secondary-light);
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 15px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-20deg);
+            transition: all 0.7s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .secret-message-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid var(--accent-color);
+            padding: 25px;
+            margin-top: 40px;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 1.1em;
+            color: var(--secondary-light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInMessage 1s ease-out forwards;
+            animation-delay: 0.5s;
+            display: none;
+        }
+
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); display: block; }
+        }
+
+        .response-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInMessage 1s ease-out forwards;
+            animation-delay: 1.5s;
+            display: none;
+        }
+
+        .response-section textarea {
+            width: calc(100% - 40px);
+            height: 150px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--secondary-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            resize: vertical;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .response-section textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .response-section button {
+            margin-top: 20px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .response-section button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .footer-text {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        .background-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .background-dots span {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: moveDots 10s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes moveDots {
+            0% { transform: translate(var(--x-start), var(--y-start)) scale(0); opacity: 0; }
+            20% { opacity: 0.7; }
+            100% { transform: translate(var(--x-end), var(--y-end)) scale(1.2); opacity: 0; }
+        }
+
+        .background-dots span:nth-child(1) { --x-start: 10vw; --y-start: 10vh; --x-end: 80vw; --y-end: 90vh; width: 15px; height: 15px; animation-delay: 0s; }
+        .background-dots span:nth-child(2) { --x-start: 90vw; --y-start: 5vh; --x-end: 20vw; --y-end: 85vh; width: 20px; height: 20px; animation-delay: 2s; }
+        .background-dots span:nth-child(3) { --x-start: 30vw; --y-start: 80vh; --x-end: 70vw; --y-end: 10vh; width: 10px; height: 10px; animation-delay: 4s; }
+        .background-dots span:nth-child(4) { --x-start: 5vw; --y-start: 60vh; --x-end: 95vw; --y-end: 20vh; width: 25px; height: 25px; animation-delay: 6s; }
+        .background-dots span:nth-child(5) { --x-start: 70vw; --y-start: 15vh; --x-end: 10vw; --y-end: 70vh; width: 18px; height: 18px; animation-delay: 8s; }
+    </style>
+</head>
+<body>
+    <div class="background-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <h1>Bilinmeyene Doğru Bir Fısıltı...</h1>
+        <p>Bazı duygular kelimelerle ifade edilemez, sadece hissedilir. Ve bazı mesajlar, doğru zamanı bekler.</p>
+        <p>Bu, benim sana gönderdiğim, uzaktan da olsa kalbimin bir yankısı. Belki de bir sır, belki de bir davet. Kim bilir?</p>
+        <p>Unutma, bazen en değerli şeyler, ilk bakışta görünmeyenlerdir. Derinlere inmekten korkma.</p>
+        
+        <button class="cta-button" id="revealMessage">
+            Gizemi Ortaya Çıkar
+        </button>
+
+        <div class="secret-message-box" id="secretMessage">
+			<p>Eliz,</p>
+			<p>Direkt söyleyeceğim... Bilmiyorum nasıl oldu ama bir süredir seni düşündüğümde yüzümde bir gülümseme beliriyor. Sanki bir anda her şeyin tonu değişti. Mesajlaşmak, sesini duymak, story atman... hepsi ufak şeyler gibi ama bende büyük yer ediyor.</p>
+			<p>Belki garip gelecek ama başka şehirde olman bile seni daha uzakta hissettirmiyor. Aksine, daha çok merak ediyorum seni. Ne yapıyorsun, nasıl hissediyorsun... Bunları bilmek istiyorum.</p>
+			<p>Bu siteyi hazırladım çünkü bazen sözcükler yetmiyor ya da cesaret edemiyorum. Ama burada daha rahatım. Belki sen de okurken “Bu çocuk gerçekten hissetmiş” dersin.</p>
+			<p>Ve evet... Belki saçma gelir ama: <strong>"Seni düşünmek, dünyanın en güzel şarkısını birdenbire duymak gibi."</strong> Bu cümle benim değil ama his tam olarak bu.</p>
+			<p>İstersen buradan sonra konuşmaya devam ederiz. Belki bir numara, belki bir “merhaba” yeter. Gerisi kendiliğinden olur zaten.</p>
+			<p>- Ahmet</p>
+
+        </div>
+
+        <div class="response-section" id="responseSection">
+            <p>Bana da bir mektup göndermek ister misin??? (Örn: Numaranı falan yazabilirsin ya.)</p>
+            <textarea id="elizMessage" placeholder="Buraya gizemli yanıtını yazabilirsin..."></textarea>
+            <button id="sendMessage">Mektubumu Gönder</button>
+            <p id="successMessage" style="color: #2ecc71; font-weight: 600; margin-top: 15px; display: none;">Mesajın ulaştı! Teşekkür ederim!</p>
+            <p id="errorMessage" style="color: #e74c3c; font-weight: 600; margin-top: 15px; display: none;">Bir şeyler ters gitti. Lütfen tekrar dene.</p>
+        </div>
+
+        <p class="footer-text">Bu mesaj, yalnızca gözlerin ve kalbin için tasarlandı.</p>
+    </div>
+
+    <script>
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1385335068796387329/b3xVR-LM_LLjGTZ5I51ftadnL8p7Jdp2_JQ268pE8pxqZ25F3CFRp6vZ-kIkrr3Gd3rF';
+
+        document.getElementById('revealMessage').addEventListener('click', function() {
+            var secretMessageBox = document.getElementById('secretMessage');
+            var responseSection = document.getElementById('responseSection');
+            var container = document.getElementById('mainContainer');
+
+            if (secretMessageBox.style.display === 'none' || secretMessageBox.style.display === '') {
+                secretMessageBox.style.display = 'block';
+                responseSection.style.display = 'block';
+                setTimeout(() => {
+                    container.scrollTop = container.scrollHeight;
+                }, 700);
+            } else {
+                secretMessageBox.style.display = 'none';
+                responseSection.style.display = 'none';
+            }
+        });
+
+        document.getElementById('sendMessage').addEventListener('click', function() {
+            const message = document.getElementById('elizMessage').value;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            if (message.trim() === '') {
+                errorMessage.textContent = 'Boş mesaj gönderemezsin, Eliz!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: 'Eliz\'den Bir Cevap',
+                    avatar_url: 'https://i.ibb.co/hK5X71P/eliz-avatar.png',
+                    content: `**Yeni bir mesaj var!**\n\n\|\|\n${message}\n\|\|\n\n- Müstakbel Manita :heart: **(ŞÜPHELİ)**`,
+                }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    document.getElementById('elizMessage').value = '';
+                } else {
+                    errorMessage.textContent = 'Mesajını gönderirken bir sorun oluştu. Lütfen tekrar dene!';
+                    errorMessage.style.display = 'block';
+                    console.error('Discord Webhook Error:', response.status, response.statusText);
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Ağ bağlantı hatası! Mesaj gönderilemedi.';
+                errorMessage.style.display = 'block';
+                console.error('Fetch Error:', error);
+            });
+        });
+
+        window.onload = function() {
+            document.getElementById('mainContainer').scrollTop = 0;
+        };
+    </script>
+</body>
+</html>
