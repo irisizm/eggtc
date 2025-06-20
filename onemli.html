@@ -264,20 +264,22 @@
         </button>
 
         <div class="secret-message-box" id="secretMessage">
-			<p>Eliz,</p>
-			<p>Direkt söyleyeceğim... Bilmiyorum nasıl oldu ama bir süredir seni düşündüğümde yüzümde bir gülümseme beliriyor. Sanki bir anda her şeyin tonu değişti. Mesajlaşmak, sesini duymak, story atman... hepsi ufak şeyler gibi ama bende büyük yer ediyor.</p>
-			<p>Belki garip gelecek ama başka şehirde olman bile seni daha uzakta hissettirmiyor. Aksine, daha çok merak ediyorum seni. Ne yapıyorsun, nasıl hissediyorsun... Bunları bilmek istiyorum.</p>
-			<p>Bu siteyi hazırladım çünkü bazen sözcükler yetmiyor ya da cesaret edemiyorum. Ama burada daha rahatım. Belki sen de okurken “Bu çocuk gerçekten hissetmiş” dersin.</p>
-			<p>Ve evet... Belki saçma gelir ama: <strong>"Seni düşünmek, dünyanın en güzel şarkısını birdenbire duymak gibi."</strong> Bu cümle benim değil ama his tam olarak bu.</p>
-			<p>İstersen buradan sonra konuşmaya devam ederiz. Belki bir numara, belki bir “merhaba” yeter. Gerisi kendiliğinden olur zaten.</p>
-			<p>- Ahmet</p>
+            <p>Eliz,</p>
+            <p>Direkt söyleyeceğim... Bilmiyorum nasıl oldu ama bir süredir seni düşündüğümde yüzümde bir gülümseme beliriyor. Sanki bir anda her şeyin tonu değişti. Mesajlaşmak, sesini duymak, story atman... hepsi ufak şeyler gibi ama bende büyük yer ediyor.</p>
+            <p>Belki garip gelecek ama başka şehirde olman bile seni daha uzakta hissettirmiyor. Aksine, daha çok merak ediyorum seni. Ne yapıyorsun, nasıl hissediyorsun... Bunları bilmek istiyorum.</p>
+            <p>Bu siteyi hazırladım çünkü bazen sözcükler yetmiyor ya da cesaret edemiyorum. Ama burada daha rahatım. Belki sen de okurken “Bu çocuk gerçekten hissetmiş” dersin.</p>
+            <p>Ve evet... Belki saçma gelir ama: <strong>"Seni düşünmek, dünyanın en güzel şarkısını birdenbire duymak gibi."</strong> Bu cümle benim değil ama his tam olarak bu.</p>
+            <p>İstersen buradan sonra konuşmaya devam ederiz. Belki bir numara, belki bir “merhaba” yeter. Gerisi kendiliğinden olur zaten.</p>
+            <p>- Ahmet</p>
 
         </div>
 
         <div class="response-section" id="responseSection">
             <p>Bana da bir mektup göndermek ister misin??? (Örn: Numaranı falan yazabilirsin ya.)</p>
-            <textarea id="elizMessage" placeholder="Buraya gizemli yanıtını yazabilirsin..."></textarea>
-            <button id="sendMessage">Mektubumu Gönder</button>
+            <form id="contactForm" action="https://formspree.io/f/xyzjdpbp" method="POST">
+                <textarea id="elizMessage" name="message" placeholder="Buraya gizemli yanıtını yazabilirsin..."></textarea>
+                <button type="submit">Mektubumu Gönder</button>
+            </form>
             <p id="successMessage" style="color: #2ecc71; font-weight: 600; margin-top: 15px; display: none;">Mesajın ulaştı! Teşekkür ederim!</p>
             <p id="errorMessage" style="color: #e74c3c; font-weight: 600; margin-top: 15px; display: none;">Bir şeyler ters gitti. Lütfen tekrar dene.</p>
         </div>
@@ -286,8 +288,6 @@
     </div>
 
     <script>
-        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1385335068796387329/b3xVR-LM_LLjGTZ5I51ftadnL8p7Jdp2_JQ268pE8pxqZ25F3CFRp6vZ-kIkrr3Gd3rF';
-
         document.getElementById('revealMessage').addEventListener('click', function() {
             var secretMessageBox = document.getElementById('secretMessage');
             var responseSection = document.getElementById('responseSection');
@@ -305,13 +305,19 @@
             }
         });
 
-        document.getElementById('sendMessage').addEventListener('click', function() {
-            const message = document.getElementById('elizMessage').value;
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
+        // Formspree entegrasyonu
+        const form = document.getElementById('contactForm');
+        const elizMessageTextarea = document.getElementById('elizMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault(); // Varsayılan form gönderimini engelle
 
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
+
+            const message = elizMessageTextarea.value;
 
             if (message.trim() === '') {
                 errorMessage.textContent = 'Boş mesaj gönderemezsin, Eliz!';
@@ -319,32 +325,33 @@
                 return;
             }
 
-            fetch(DISCORD_WEBHOOK_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: 'Eliz\'den Bir Cevap',
-                    avatar_url: 'https://i.ibb.co/hK5X71P/eliz-avatar.png',
-                    content: `**Yeni bir mesaj var!**\n\n\|\|\n${message}\n\|\|\n\n- Müstakbel Manita :heart: **(ŞÜPHELİ)**`,
-                }),
-            })
-            .then(response => {
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form), // Formspree FormData bekler
+                    headers: {
+                        'Accept': 'application/json' // Formspree'den JSON yanıtı için önemli
+                    }
+                });
+
                 if (response.ok) {
                     successMessage.style.display = 'block';
-                    document.getElementById('elizMessage').value = '';
+                    elizMessageTextarea.value = ''; // Metin alanını temizle
                 } else {
-                    errorMessage.textContent = 'Mesajını gönderirken bir sorun oluştu. Lütfen tekrar dene!';
+                    const data = await response.json();
+                    if (data.errors) {
+                        errorMessage.textContent = data.errors.map(error => error.message).join(', ');
+                    } else {
+                        errorMessage.textContent = 'Mesajını gönderirken bir sorun oluştu. Lütfen tekrar dene!';
+                    }
                     errorMessage.style.display = 'block';
-                    console.error('Discord Webhook Error:', response.status, response.statusText);
+                    console.error('Formspree Hatası:', response.status, data);
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 errorMessage.textContent = 'Ağ bağlantı hatası! Mesaj gönderilemedi.';
                 errorMessage.style.display = 'block';
-                console.error('Fetch Error:', error);
-            });
+                console.error('Fetch Hatası:', error);
+            }
         });
 
         window.onload = function() {
