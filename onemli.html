@@ -3,471 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana Bir Mektup</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Pacifico&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>Sistem Arızası</title>
     <style>
-        :root {
-            --primary-dark: #4B0082;
-            --secondary-light: #F8F4FF;
-            --accent-color: #FFB6C1;
-            --text-color: #3C0066;
-            --box-bg: rgba(255, 255, 255, 0.18);
-            --border-color: rgba(255, 255, 255, 0.35);
-            --scroll-thumb: #FFB6C1;
-            --scroll-track: rgba(255, 255, 255, 0.12);
-            --cta-button-bg: linear-gradient(45deg, #FFB6C1, #DDA0DD);
-            --cta-button-hover-bg: linear-gradient(45deg, #FFC0CB, #E6E6FA);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #300050 100%);
-            color: var(--secondary-light);
+            background-color: #1a1a2e; /* Koyu lacivert-mor */
+            color: #e0e0e0; /* Açık gri */
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             overflow: hidden;
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .animated-bg-lines {
-            display: none;
+            perspective: 1200px; /* Daha belirgin 3D etkisi */
         }
 
         .container {
-            background-color: var(--box-bg);
-            backdrop-filter: blur(18px);
-            padding: 55px;
-            border-radius: 30px;
-            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+            position: relative;
+            width: 85vw;
+            max-width: 900px;
+            padding: 60px;
+            border: 1px solid rgba(138, 43, 226, 0.3); /* Açık mor kenarlık */
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.2), 0 0 80px rgba(138, 43, 226, 0.1); /* Mor tonlarda hafif gölge */
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(46, 30, 60, 0.8)); /* Hafif gradyanlı koyu arka plan */
+            transform-style: preserve-3d;
+            animation: containerPulse 5s infinite ease-in-out alternate; /* Hafif nabız atışı */
+            backdrop-filter: blur(5px); /* Hafif bulanıklık efekti */
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .content {
             text-align: center;
-            max-width: 800px;
-            width: 90%;
-            border: 1px solid var(--border-color);
             position: relative;
             z-index: 10;
-            opacity: 0;
-            transform: translateY(40px) rotateX(-3deg);
-            animation: revealContainer 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-
-        @keyframes revealContainer {
-            from { opacity: 0; transform: translateY(100px) rotateX(-20deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-        }
-
-        .container::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: var(--scroll-track);
-            border-radius: 8px;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background-color: var(--scroll-thumb);
-            border-radius: 8px;
-            border: 2px solid var(--box-bg);
-        }
-
-        .container::-webkit-scrollbar-thumb:hover {
-            background-color: #f5a9bc;
         }
 
         h1 {
-            font-family: 'Pacifico', cursive;
-            color: var(--accent-color);
-            font-size: 4.2em;
-            margin-bottom: 30px;
-            text-shadow: 0 0 12px rgba(255, 182, 193, 0.7), 0 0 20px rgba(255, 182, 193, 0.5);
-            letter-spacing: 1px;
-            animation: textGlowPulse 3.5s infinite alternate;
-        }
-
-        @keyframes textGlowPulse {
-            0%, 100% { text-shadow: 0 0 10px rgba(255, 182, 193, 0.7), 0 0 18px rgba(255, 182, 193, 0.5); }
-            50% { text-shadow: 0 0 15px rgba(255, 182, 193, 0.9), 0 0 25px rgba(255, 182, 193, 0.7); }
+            font-family: 'IBM Plex Mono', monospace;
+            color: #ff6347; /* Soluklaştırılmış domates kırmızısı */
+            font-size: 3.2em;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(255, 99, 71, 0.4); /* Daha hafif parıltı */
+            letter-spacing: 2px;
+            animation: textGlitch 4s infinite alternate, flickerSubtle 2s infinite alternate; /* Daha kaliteli glitch ve hafif titreşim */
         }
 
         p {
-            color: var(--secondary-light);
-            font-size: 1.15em;
-            line-height: 1.8;
-            margin-bottom: 22px;
-            text-align: justify;
-            padding: 0 25px;
-            font-weight: 300;
-        }
-
-        .cta-button {
-            background: var(--cta-button-bg);
-            color: white;
-            padding: 20px 45px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.5em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-            letter-spacing: 1px;
-            margin-top: 40px;
-            position: relative;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.25em;
+            line-height: 1.7;
+            color: #bbbbbb; /* Daha yumuşak gri */
+            text-shadow: 0 0 5px rgba(187, 187, 187, 0.2); /* Çok hafif parıltı */
+            margin-bottom: 20px; /* Paragraflar arası boşluk azaltıldı */
+            opacity: 0; /* Başlangıçta tüm paragrafları gizle */
             overflow: hidden;
-            text-transform: uppercase;
+            border-right: .10em solid rgba(138, 43, 226, 0.7); /* Daha ince, mor cursor */
+            white-space: nowrap; /* Yazma efekti için tek satırda tut */
+            width: 0; /* Başlangıçta gizli */
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.35);
-            transform: skewX(-30deg);
-            transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+        /* Her paragraf için özel animasyon gecikmesi */
+        p:nth-child(2) { /* İlk paragraf (h1'den sonraki ilk p) */
+            animation: typeEffectModern 3s steps(40, end) forwards 1s, cursorBlinkModern 0.8s infinite 3s;
+            /* Animasyon süresi, adım sayısı, gecikme, imleç gecikmesi */
         }
 
-        .cta-button:hover::before {
-            left: 150%;
+        p:nth-child(3) {
+            animation: typeEffectModern 4s steps(50, end) forwards 4s, cursorBlinkModern 0.8s infinite 8s;
         }
 
-        .cta-button:hover {
-            transform: translateY(-10px) scale(1.04);
-            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.6);
-            background: var(--cta-button-hover-bg);
+        p:nth-child(4) {
+            animation: typeEffectModern 3s steps(40, end) forwards 9s, cursorBlinkModern 0.8s infinite 12s;
         }
 
-        .secret-message-box {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 5px solid var(--accent-color);
-            padding: 35px;
-            margin-top: 50px;
-            border-radius: 20px;
-            text-align: left;
-            font-size: 1.15em;
-            color: var(--secondary-light);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 1s;
-            display: none;
-            position: relative;
+        p:nth-child(5) {
+            animation: typeEffectModern 5s steps(70, end) forwards 13s, cursorBlinkModern 0.8s infinite 18s;
         }
-        
-        .secret-message-box::after {
-            content: '';
+
+        p:nth-child(6) {
+            animation: typeEffectModern 4s steps(50, end) forwards 19s, cursorBlinkModern 0.8s infinite 23s;
+        }
+
+        /* Son paragraftaki cursor'ı gizle */
+        p:last-child {
+            border-right: none;
+        }
+
+        .overlay-grid {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGZpbHRlciBpZD0idG9vSmFnZ2VkIiB4PSItMTUwJSIgeT0iLTE1MCUiIHdpZHRoPSIzMDAlIiBoZWlnaHQ9IjMwMCUiPjxmZURpc3BsYWNlbWVudCBpbj0iU291cmNlQWipGhCIgc2NhbGU9IjUiIG51bVRpbGVzPSI1MCIgc3RpdGNoVGlsZXM9InN0aXRjaFBsYWNlIiB0eXBlPSJmcmFjdGFsUHJvYmFiaXN0aWMiIGVuZHM9IjAuNSAwLjUgMC41IDAuNSIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmOGY4ZjgiIGZpbHRlcj0idXJsKCN0b29KYWdnZWQpIi8+PC9zdmc==');
-            background-size: 100px 100px;
-            opacity: 0.08;
+            background-image:
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px; /* Izgara boyutu */
+            opacity: 0.1; /* Çok hafif */
             pointer-events: none;
-            border-radius: 20px;
+            z-index: 1;
         }
 
-        @keyframes fadeInMessage {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); display: block; }
-        }
-
-        .secret-message-box p {
-            font-size: 1.1em;
-            line-height: 1.75;
-            margin-bottom: 18px;
-            color: var(--secondary-light);
-            text-align: left;
-            padding: 0;
-            font-weight: 400;
-        }
-
-        .secret-message-box strong {
-            color: var(--accent-color);
-            text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
-        }
-
-        .response-section {
-            margin-top: 55px;
-            padding-top: 35px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.4);
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 1.5s;
-            display: none;
-        }
-
-        .response-section p {
-            text-align: center;
-            font-weight: 600;
-            color: var(--secondary-light);
-            margin-bottom: 30px;
-        }
-
-        .response-section textarea {
-            width: calc(100% - 50px);
-            height: 180px;
-            padding: 25px;
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: var(--secondary-light);
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.05em;
-            resize: vertical;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.45);
-            outline: none;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .response-section textarea:focus {
-            border-color: var(--accent-color);
-            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 182, 193, 0.7);
-        }
-
-        .response-section button {
-            margin-top: 30px;
-            background: linear-gradient(45deg, #66BB6A, #4CAF50);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.35em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-            text-transform: uppercase;
-        }
-
-        .response-section button:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
-            background: linear-gradient(45deg, #4CAF50, #66BB6A);
-        }
-
-        .footer-text {
-            font-size: 0.95em;
-            color: rgba(255, 255, 255, 0.75);
-            margin-top: 60px;
-            letter-spacing: 0.5px;
-            font-weight: 300;
-        }
-
-        .background-dots {
+        .scanlines {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
             pointer-events: none;
-            overflow: hidden;
-            z-index: 5;
+            z-index: 2;
+            opacity: 0.3;
+            animation: scanlineScroll 10s infinite linear;
         }
 
-        .background-dots span {
-            position: absolute;
-            background-color: rgba(255, 182, 193, 0.06);
-            border-radius: 50%;
-            animation: moveDots 20s infinite linear;
-            opacity: 0;
+        /* Anahtar kare animasyonları */
+        @keyframes containerPulse {
+            0% { transform: scale(1) rotateY(0deg); box-shadow: 0 0 40px rgba(138, 43, 226, 0.2), 0 0 80px rgba(138, 43, 226, 0.1); }
+            50% { transform: scale(1.01) rotateY(0.5deg); box-shadow: 0 0 50px rgba(138, 43, 226, 0.3), 0 0 90px rgba(138, 43, 226, 0.15); }
+            100% { transform: scale(1) rotateY(0deg); box-shadow: 0 0 40px rgba(138, 43, 226, 0.2), 0 0 80px rgba(138, 43, 226, 0.1); }
         }
 
-        @keyframes moveDots {
-            0% { transform: translate(var(--x-start), var(--y-start)) scale(0); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translate(var(--x-end), var(--y-end)) scale(1.8); opacity: 0; }
-        }
-
-        .background-dots span:nth-child(1) { --x-start: 10vw; --y-start: 10vh; --x-end: 80vw; --y-end: 90vh; width: 25px; height: 25px; animation-delay: 0s; }
-        .background-dots span:nth-child(2) { --x-start: 90vw; --y-start: 5vh; --x-end: 20vw; --y-end: 85vh; width: 30px; height: 30px; animation-delay: 4s; }
-        .background-dots span:nth-child(3) { --x-start: 30vw; --y-start: 80vh; --x-end: 70vw; --y-end: 10vh; width: 20px; height: 20px; animation-delay: 8s; }
-        .background-dots span:nth-child(4) { --x-start: 5vw; --y-start: 60vh; --x-end: 95vw; --y-end: 20vh; width: 35px; height: 35px; animation-delay: 12s; }
-        .background-dots span:nth-child(5) { --x-start: 70vw; --y-start: 15vh; --x-end: 10vw; --y-end: 70vh; width: 28px; height: 28px; animation-delay: 16s; }
-
-        .emoji {
-            position: fixed;
-            font-size: 2em;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(0);
-            animation: flyUpAndFade 2.5s ease-out forwards;
-            z-index: 100;
-            will-change: transform, opacity;
-        }
-
-        @keyframes flyUpAndFade {
-            0% {
-                opacity: 0;
-                transform: translateY(0) scale(0.8);
+        @keyframes textGlitch {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 99, 71, 0.4);
+                transform: translate(0, 0);
+            }
+            10% {
+                text-shadow: 2px 0 10px rgba(255, 99, 71, 0.6);
+                transform: translate(-1px, 1px);
             }
             20% {
-                opacity: 1;
-                transform: translateY(-20px) scale(1.1);
+                text-shadow: -2px 0 10px rgba(255, 99, 71, 0.6);
+                transform: translate(1px, -1px);
             }
-            80% {
-                opacity: 1;
-                transform: translateY(-100px) scale(1);
+            30% {
+                text-shadow: 0 2px 10px rgba(255, 99, 71, 0.6);
+                transform: translate(-1px, -1px);
             }
-            100% {
-                opacity: 0;
-                transform: translateY(-200px) scale(0.6);
+            40% {
+                text-shadow: 0 -2px 10px rgba(255, 99, 71, 0.6);
+                transform: translate(1px, 1px);
             }
+        }
+
+        @keyframes flickerSubtle {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.9; }
+        }
+
+        /* `typeEffectModern` animasyonunu tek satırda tutmak için `white-space: nowrap` ve `overflow: hidden` ile birlikte kullanılır.
+           Metin tam göründüğünde `white-space: normal` olarak ayarlanırsa alta geçebilir. */
+        @keyframes typeEffectModern {
+            from { width: 0; opacity: 0; }
+            to { width: 100%; opacity: 1; white-space: normal; } /* Metin ortaya çıktıktan sonra normal satır sonu */
+        }
+
+        @keyframes cursorBlinkModern {
+            from, to { border-color: transparent; }
+            50% { border-color: rgba(138, 43, 226, 0.7); }
+        }
+
+        @keyframes scanlineScroll {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="background-dots">
-        <span></span><span></span><span></span><span></span><span></span>
-    </div>
-
-    <div class="container" id="mainContainer">
-        <h1>Gerçeklere Doğru Bir Mektup...</h1>
-        <p>Bazı duygular kelimelerle ifade edilemez, sadece hissedilir. Ve bazı mesajlar, doğru zamanı bekler.</p>
-        <p>Bu, benim sana gönderdiğim, uzaktan da olsa kalbimin bir yankısı. Belki de bir sır, belki de bir davet. Kim bilir?</p>
-        <p>Unutma, bazen en değerli şeyler, ilk bakışta görünmeyenlerdir. Derinlere inmekten korkma.</p>
-        
-        <button class="cta-button" id="revealMessage">
-            Mektubu Aç
-        </button>
-
-        <div class="secret-message-box" id="secretMessage">
-            <p>Sevgili Eliz,</p>
-            <p>Sana direkt ve içtenlikle yazmak istedim. Bilmiyorum nasıl oldu, ama bir süredir seni düşündüğümde yüzümde sıcacık bir gülümseme beliriyor. Sanki bir anda her şeyin tonu değişti, hayat daha renkli oldu.</p>
-            <p>Mesajlaşmak, sesini duymak, paylaştığın hikayeler... hepsi sanki küçücük detaylar gibi görünebilir, ama benim için çok büyük ve değerli bir yer edinmeye başladı.</p>
-            <p>Belki garip gelecek ama, başka bir şehirde olsan bile seni hiç uzak hissetmiyorum. Aksine, seni daha da merak ediyorum. Günün nasıl geçti, şu an ne hissediyorsun, hayallerin neler... Bunları seninle paylaşmak, senin dünyana daha çok dahil olmak istiyorum.</p>
-            <p>Bu özel sayfayı hazırladım, çünkü bazen kelimeler yetersiz kalır ya da o anki cesaretinle söyleyemezsin. Ama burada, içimden geçenleri çok daha rahat ifade edebiliyorum. Umarım sen de okurken "Bu çocuk gerçekten içten yazmış" dersin.</p>
-            <p>Ve evet... Belki biraz romantik ve saçma gelebilir ama hissettiğim tam olarak bu: <strong>"Seni düşünmek, dünyanın en güzel şarkısını birdenbire duymak gibi."</strong> Bu cümle benim değil, ama şu anki duygumu anlatmaya birebir uyuyor.</p>
-            <p>Eğer sen de istersen, bu mektuptan sonra sohbetimize devam edebiliriz. Belki sadece küçük bir "merhaba" ya da bir numara... Gerisi zaten kendiliğinden gelir, ben eminim.</p>
-            <p>Sevgilerimle,</p>
-            <p>- Ahmet</p>
+    <div class="container">
+        <div class="overlay-grid"></div>
+        <div class="scanlines"></div>
+        <div class="content">
+            <h1>Mektup</h1>
+            <p>Bu önemli yazı falan dememi beklerdin dimi orosbu evladı</p>
+            <p>combat senin o amına koyayım sen varya kahpenin tekisin</p>
+            <p>sana şamı gösterdiğim güne lanet olsun</p>
+            <p>sen aptal ve eziğin tekisin sadece 177 kilo ve 154 boyunda bir yağ varilisin</p>
+            <p>neyse bu kadar yeter ama asla o siteye ulaşamicaksın ❤.</p>
         </div>
-
-        <div class="response-section" id="responseSection">
-            <p>Bu mektuba sen de bir yanıt vermek ister misin?</p>
-            <form id="contactForm" action="https://formspree.io/f/xyzjdpbp" method="POST">
-                <textarea id="elizMessage" name="message" placeholder="Buraya kalbinden geçenleri yazabilirsin..."></textarea>
-                <button type="submit">Mektubumu Gönder</button>
-            </form>
-            <p id="successMessage" style="color: #66BB6A; font-weight: 600; margin-top: 15px; display: none;">Mektubun kalbime ulaştı! Teşekkür ederim!</p>
-            <p id="errorMessage" style="color: #FF69B4; font-weight: 600; margin-top: 15px; display: none;">Bir şeyler ters gitti gibi... Lütfen tekrar dener misin?</p>
-        </div>
-
-        <p class="footer-text">Bu mektup, yalnızca senin gözlerin ve kalbin için sevgiyle yazıldı.</p>
     </div>
-
-    <script>
-        document.getElementById('revealMessage').addEventListener('click', function() {
-            var secretMessageBox = document.getElementById('secretMessage');
-            var responseSection = document.getElementById('responseSection');
-            var container = document.getElementById('mainContainer');
-
-            if (secretMessageBox.style.display === 'none' || secretMessageBox.style.opacity === '0') {
-                secretMessageBox.style.display = 'block';
-                responseSection.style.display = 'block';
-                
-                secretMessageBox.style.animation = 'fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
-                responseSection.style.animation = 'fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 0.7s';
-
-                setTimeout(() => {
-                    container.scrollTop = container.scrollHeight;
-                }, 2000);
-            } else {
-                secretMessageBox.style.display = 'none';
-                responseSection.style.display = 'none';
-            }
-        });
-
-        const form = document.getElementById('contactForm');
-        const elizMessageTextarea = document.getElementById('elizMessage');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
-
-        const emojis = ['❤️', '💖', '✨', '🌸', '💫', '💕'];
-
-        function spawnEmojis() {
-            const count = 15;
-            for (let i = 0; i < count; i++) {
-                const emoji = document.createElement('span');
-                emoji.classList.add('emoji');
-                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-                const startX = Math.random() * window.innerWidth;
-                const startY = window.innerHeight - 50;
-                
-                emoji.style.left = `${startX}px`;
-                emoji.style.top = `${startY}px`;
-                emoji.style.fontSize = `${1.5 + Math.random() * 1.5}em`;
-                emoji.style.animationDelay = `${Math.random() * 0.5}s`;
-
-                document.body.appendChild(emoji);
-
-                emoji.addEventListener('animationend', () => {
-                    emoji.remove();
-                });
-            }
-        }
-
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            errorMessage.textContent = '';
-
-            const message = elizMessageTextarea.value;
-
-            if (message.trim() === '') {
-                errorMessage.textContent = 'Boş bir mektup gönderemezsin, Eliz!';
-                errorMessage.style.display = 'block';
-                return;
-            }
-
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: new FormData(form),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    successMessage.style.display = 'block';
-                    elizMessageTextarea.value = '';
-                    spawnEmojis();
-                } else {
-                    const data = await response.json();
-                    if (data.errors) {
-                        errorMessage.textContent = data.errors.map(error => error.message).join(', ');
-                    } else {
-                        errorMessage.textContent = 'Mektubunu gönderirken küçük bir sorun çıktı. Lütfen tekrar dener misin?';
-                    }
-                    errorMessage.style.display = 'block';
-                    console.error('Formspree Hatası:', response.status, data);
-                }
-            } catch (error) {
-                errorMessage.textContent = 'Ağ bağlantısı koptu galiba! Mektubun gönderilemedi.';
-                errorMessage.style.display = 'block';
-                console.error('Fetch Hatası:', error);
-            }
-        });
-
-        window.onload = function() {
-            document.getElementById('mainContainer').scrollTop = 0;
-        };
-    </script>
 </body>
 </html>
