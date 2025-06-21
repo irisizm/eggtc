@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giriş Doğrulama: LOG Dosyası Erişim Protokolü</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>SECURE OS: PROTOKOL ARAYÜZÜ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark-bg: #111111;
-            --main-color: #00bcd4;
-            --accent-color: #ff5722;
-            --text-light: #e0e0e0;
-            --input-border: #00796b;
-            --success-color: #4caf50;
-            --error-color: #f44336;
+            --dark-bg: #0A0A0A;
+            --terminal-bg: #1A1A1A;
+            --main-color: #00BFFF;
+            --text-color: #E0E0E0;
+            --secondary-text: #B0B0B0;
+            --success-color: #00FF80;
+            --error-color: #FF4081;
+            --border-color: #333333;
+            --glow-color: rgba(0, 191, 255, 0.4);
         }
 
         body {
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'Fira Code', monospace;
             background: radial-gradient(circle at center, var(--dark-bg) 0%, #000000 100%);
-            color: var(--text-light);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,146 +32,7 @@
             flex-direction: column;
             padding: 20px;
             box-sizing: border-box;
-        }
-
-        .terminal-container {
-            background-color: rgba(0, 0, 0, 0.85);
-            border: 2px solid var(--main-color);
-            box-shadow: 0 0 30px rgba(0, 188, 212, 0.6), inset 0 0 15px rgba(0, 188, 212, 0.4);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 450px;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            animation: fadeInTerminal 1.5s ease-out;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        @keyframes fadeInTerminal {
-            from { opacity: 0; transform: rotateX(20deg) scale(0.8); }
-            to { opacity: 1; transform: rotateX(0deg) scale(1); }
-        }
-
-        .glitch-text {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-color);
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px var(--accent-color);
-            letter-spacing: 3px;
-            animation: glitch 2s infinite alternate;
-            position: relative;
-            text-transform: uppercase;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 0 0 1px var(--accent-color), 3px 3px 0 #00f, -3px -3px 0 #f00; transform: translate(0); }
-            25% { text-shadow: 0 0 1px var(--accent-color), -3px 0 0 #00f, 3px 0 0 #f00; transform: translate(-2px); }
-            50% { text-shadow: 0 0 1px var(--accent-color), 3px -3px 0 #00f, -3px 3px 0 #f0f; transform: translate(2px); }
-            75% { text-shadow: 0 0 1px var(--accent-color), -3px 3px 0 #00f, 3px -3px 0 #f0f; transform: translate(-2px); }
-            100% { text-shadow: 0 0 1px var(--accent-color), 0 0 0 #00f, 0 0 0 #f0f; transform: translate(0); }
-        }
-
-        p {
-            font-size: 1em;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: var(--text-light);
-            text-align: center;
-        }
-
-        .clue {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: var(--main-color);
-            text-shadow: 0 0 8px var(--main-color);
-            margin-top: 15px;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: rgba(0, 188, 212, 0.08);
-            border-left: 3px solid var(--main-color);
-            border-radius: 5px;
-        }
-
-        .input-group {
-            margin-top: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-
-        .input-group input[type="text"] {
-            width: calc(100% - 40px);
-            padding: 12px 20px;
-            border: 2px solid var(--input-border);
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: var(--text-light);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.1em;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
-            -webkit-appearance: none;
-        }
-
-        .input-group input[type="text"]:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px var(--accent-color), inset 0 0 10px rgba(0, 0, 0, 0.7);
-        }
-
-        .submit-button {
-            background: linear-gradient(45deg, var(--accent-color), #d84315);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            margin-top: 25px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(45deg, #ff6b6b, #e74c3c);
-        }
-
-        #feedback-message {
-            margin-top: 20px;
-            font-size: 1em;
-            font-weight: 600;
-            animation: pulseFeedback 1s infinite alternate;
-            display: none;
-        }
-
-        @keyframes pulseFeedback {
-            from { opacity: 0.7; }
-            to { opacity: 1; }
-        }
-
-        .error {
-            color: var(--error-color);
-            text-shadow: 0 0 5px var(--error-color);
-        }
-
-        .success {
-            color: var(--success-color);
-            text-shadow: 0 0 5px var(--success-color);
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.05);
         }
 
         .animated-bg-lines {
@@ -183,17 +46,199 @@
             z-index: 5;
             background: repeating-linear-gradient(
                 45deg,
-                rgba(0, 188, 212, 0.03),
-                rgba(0, 188, 212, 0.03) 10px,
+                rgba(0, 191, 255, 0.015),
+                rgba(0, 191, 255, 0.015) 10px,
                 transparent 10px,
                 transparent 20px
             );
-            animation: moveBg 20s linear infinite;
+            animation: moveBg 30s linear infinite;
         }
 
         @keyframes moveBg {
             from { background-position: 0 0; }
             to { background-position: 500px 500px; }
+        }
+
+        .terminal-container {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 15px var(--glow-color), inset 0 0 8px rgba(0, 0, 0, 0.6);
+            padding: 35px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInTerminal 1.2s ease-out forwards 0.5s;
+        }
+
+        @keyframes fadeInTerminal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .terminal-header {
+            font-family: 'Inter', sans-serif;
+            color: var(--main-color);
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: headerPulse 2s infinite alternate;
+        }
+
+        @keyframes headerPulse {
+            from { text-shadow: 0 0 8px var(--main-color), 0 0 12px rgba(0, 191, 255, 0.4); }
+            to { text-shadow: 0 0 12px var(--main-color), 0 0 18px rgba(0, 191, 255, 0.7); }
+        }
+
+        .boot-text {
+            color: var(--secondary-text);
+            font-size: 0.95em;
+            text-align: left;
+            white-space: pre-wrap;
+            margin-bottom: 25px;
+            min-height: 120px;
+            overflow: hidden;
+            opacity: 0;
+            border-right: 0.1em solid var(--text-color);
+            animation: typing 3s steps(60, end) forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        .boot-text.hidden {
+            display: none;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--text-color) }
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--secondary-text);
+            text-align: center;
+        }
+
+        .protocol-hint {
+            font-size: 1.05em;
+            font-weight: 500;
+            color: var(--main-color);
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.3);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: rgba(0, 191, 255, 0.05);
+            border-left: 2px solid var(--main-color);
+            border-right: 2px solid var(--main-color);
+            border-radius: 3px;
+        }
+
+        .input-group {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1em;
+            color: var(--text-color);
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.1);
+            padding-left: 5px;
+        }
+
+        .input-group input[type="text"] {
+            width: calc(100% - 10px);
+            padding: 10px 5px;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--terminal-bg);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1em;
+            text-align: left;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+            -webkit-appearance: none;
+            caret-color: var(--main-color);
+        }
+
+        .input-group input[type="text"]:focus {
+            border-color: var(--main-color);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+            animation: inputFocusGlow 0.8s infinite alternate;
+        }
+
+        @keyframes inputFocusGlow {
+            from { box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6); }
+            to { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7), 0 0 5px var(--main-color); }
+        }
+
+        .submit-button {
+            background: linear-gradient(45deg, var(--main-color), #0080FF);
+            color: var(--terminal-bg);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            margin-top: 30px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid var(--main-color);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5), 0 0 15px var(--glow-color);
+            background: linear-gradient(45deg, #00CFFF, var(--main-color));
+        }
+
+        #feedback-message {
+            margin-top: 25px;
+            font-size: 1em;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: feedbackIn 0.5s ease-out forwards;
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        @keyframes feedbackIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .error {
+            color: var(--error-color);
+            text-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
+        }
+
+        .success {
+            color: var(--success-color);
+            text-shadow: 0 0 5px rgba(0, 255, 128, 0.5);
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -201,17 +246,22 @@
     <div class="animated-bg-lines"></div>
 
     <div class="terminal-container">
-        <h1 class="glitch-text">Giriş Doğrulama</h1>
-        <p>LOG dosyan hazır, ancak önce bu protokolden geçmelisin.</p>
-        
-        <div class="arg-stage" id="stage1">
-            <p><strong>Veri Fragmenti: Evrensel Zaman</strong></p>
-            <p class="clue">Roma rakamlarıyla MCDLIII sayısının Arap rakamlarındaki karşılığı nedir?</p>
+        <h1 class="terminal-header">SECURE OS: PROTOKOL ARAYÜZÜ</h1>
+        <p class="boot-text" id="bootText"></p>
+
+        <div class="arg-stage hidden" id="mainContent">
+            <p style="color: var(--text-color); text-align: left;">
+                Log dosyası erişimi için güvenlik protokolünü tamamlayın.
+            </p>
+            <p class="protocol-hint">
+                <strong>[VERİ PARÇASI - KOD: ROMA.HIST.MCDLIII]</strong><br>
+                Belirtilen tarihsel kodun standart ondalık sistemdeki sayısal karşılığını girin.
+            </p>
             <div class="input-group">
-                <label for="input1">Yanıt:</label>
-                <input type="text" id="input1" placeholder="Yanıtı buraya gir..." autofocus inputmode="numeric">
+                <label for="input1">> GİRİŞ:</label>
+                <input type="text" id="input1" placeholder="Değeri buraya girin..." inputmode="numeric">
             </div>
-            <button class="submit-button" id="submitAnswer">Onayla</button>
+            <button class="submit-button" id="submitAnswer">PROTOKOLÜ DOĞRULA</button>
         </div>
 
         <p id="feedback-message"></p>
@@ -219,13 +269,49 @@
 
     <script>
         const MAIN_PAGE_URL = 'onemli.html';
-        const CORRECT_ANSWER = "1453"; 
-
+        const CORRECT_ANSWER = "1453";
+        const bootTextElement = document.getElementById('bootText');
+        const mainContent = document.getElementById('mainContent');
         const passwordInput = document.getElementById('input1');
         const submitButton = document.getElementById('submitAnswer');
         const feedbackMessage = document.getElementById('feedback-message');
 
-        passwordInput.focus();
+        const bootSequenceMessages = [
+            "INIT: Sistem başlatılıyor...",
+            "PROTOKOL: Güvenli kanal doğrulanıyor...",
+            "MODÜL: Kimlik doğrulama alt sistemleri yükleniyor...",
+            "DURUM: Kayıt dosyası erişim protokolü aktif.",
+            "YÖNERGE: Gerekli veri parçasını sağlayın.",
+            ""
+        ];
+        let messageIndex = 0;
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (messageIndex < bootSequenceMessages.length) {
+                const currentMessage = bootSequenceMessages[messageIndex];
+                bootTextElement.style.opacity = 1;
+                if (charIndex < currentMessage.length) {
+                    bootTextElement.textContent += currentMessage.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 20);
+                } else {
+                    bootTextElement.textContent += '\n';
+                    messageIndex++;
+                    charIndex = 0;
+                    setTimeout(typeWriter, 500);
+                }
+            } else {
+                bootTextElement.style.borderRight = 'none';
+                bootTextElement.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                passwordInput.focus();
+            }
+        }
+
+        setTimeout(() => {
+            typeWriter();
+        }, 800);
 
         submitButton.addEventListener('click', checkAnswer);
         passwordInput.addEventListener('keypress', function(event) {
@@ -236,18 +322,21 @@
 
         function checkAnswer() {
             const enteredAnswer = passwordInput.value.trim();
-            
+            feedbackMessage.style.display = 'block';
+            feedbackMessage.style.opacity = 0;
+            feedbackMessage.style.transform = 'translateY(10px)';
+
             if (enteredAnswer === CORRECT_ANSWER) {
-                feedbackMessage.textContent = 'Doğrulama Başarılı! Log Dosyasına Erişiliyor...';
+                feedbackMessage.textContent = '> [DURUM]: Doğrulama BAŞARILI. Log dosyasına erişim sağlanıyor...';
                 feedbackMessage.className = 'success';
-                feedbackMessage.style.display = 'block';
+                feedbackMessage.style.animation = 'feedbackIn 0.5s ease-out forwards';
                 setTimeout(() => {
                     window.location.href = MAIN_PAGE_URL;
-                }, 1500);
+                }, 2500);
             } else {
-                feedbackMessage.textContent = 'Yanlış Yanıt. Protokol İhlali!';
+                feedbackMessage.textContent = '> [HATA]: Yanlış yanıt. Protokol İHLALİ.';
                 feedbackMessage.className = 'error';
-                feedbackMessage.style.display = 'block';
+                feedbackMessage.style.animation = 'feedbackIn 0.5s ease-out forwards';
                 passwordInput.value = '';
                 passwordInput.focus();
             }
