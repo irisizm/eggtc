@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOG</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sana Bir Mektup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Pacifico&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-dark: #2c3e50;
-            --secondary-light: #ecf0f1;
-            --accent-color: #e74c3c;
-            --text-color: #34495e;
-            --box-bg: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --scroll-thumb: #e74c3c;
-            --scroll-track: rgba(255, 255, 255, 0.1);
+            --primary-dark: #4B0082;
+            --secondary-light: #F8F4FF;
+            --accent-color: #FFB6C1;
+            --text-color: #3C0066;
+            --box-bg: rgba(255, 255, 255, 0.18);
+            --border-color: rgba(255, 255, 255, 0.35);
+            --scroll-thumb: #FFB6C1;
+            --scroll-track: rgba(255, 255, 255, 0.12);
+            --cta-button-bg: linear-gradient(45deg, #FFB6C1, #DDA0DD);
+            --cta-button-hover-bg: linear-gradient(45deg, #FFC0CB, #E6E6FA);
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a252f 100%);
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #300050 100%);
             color: var(--secondary-light);
             display: flex;
             justify-content: center;
@@ -31,189 +33,236 @@
             perspective: 1000px;
         }
 
+        .animated-bg-lines {
+            display: none;
+        }
+
         .container {
             background-color: var(--box-bg);
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(18px);
+            padding: 55px;
+            border-radius: 30px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
             text-align: center;
-            max-width: 700px;
+            max-width: 800px;
             width: 90%;
             border: 1px solid var(--border-color);
             position: relative;
             z-index: 10;
             opacity: 0;
-            transform: translateY(20px) rotateX(-10deg);
-            animation: revealContainer 1.5s ease-out forwards;
+            transform: translateY(40px) rotateX(-3deg);
+            animation: revealContainer 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             overflow-y: auto;
-            max-height: 80vh;
+            max-height: 90vh;
         }
 
         @keyframes revealContainer {
-            from { opacity: 0; transform: translateY(50px) rotateX(-20deg); }
+            from { opacity: 0; transform: translateY(100px) rotateX(-20deg); }
             to { opacity: 1; transform: translateY(0) rotateX(0deg); }
         }
 
         .container::-webkit-scrollbar {
-            width: 12px;
+            width: 10px;
         }
 
         .container::-webkit-scrollbar-track {
             background: var(--scroll-track);
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
         .container::-webkit-scrollbar-thumb {
             background-color: var(--scroll-thumb);
-            border-radius: 10px;
-            border: 3px solid var(--box-bg);
+            border-radius: 8px;
+            border: 2px solid var(--box-bg);
         }
 
         .container::-webkit-scrollbar-thumb:hover {
-            background-color: var(--accent-color);
+            background-color: #f5a9bc;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Pacifico', cursive;
             color: var(--accent-color);
-            font-size: 3.2em;
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(231, 76, 60, 0.6);
-            letter-spacing: 2px;
-            animation: flicker 2s infinite alternate;
+            font-size: 4.2em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 12px rgba(255, 182, 193, 0.7), 0 0 20px rgba(255, 182, 193, 0.5);
+            letter-spacing: 1px;
+            animation: textGlowPulse 3.5s infinite alternate;
         }
 
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.9; }
+        @keyframes textGlowPulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 182, 193, 0.7), 0 0 18px rgba(255, 182, 193, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(255, 182, 193, 0.9), 0 0 25px rgba(255, 182, 193, 0.7); }
         }
 
         p {
             color: var(--secondary-light);
             font-size: 1.15em;
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             text-align: justify;
-            padding: 0 15px;
+            padding: 0 25px;
+            font-weight: 300;
         }
 
         .cta-button {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background: var(--cta-button-bg);
             color: white;
-            padding: 16px 35px;
+            padding: 20px 45px;
             border: none;
             border-radius: 50px;
-            font-size: 1.3em;
+            font-size: 1.5em;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
             letter-spacing: 1px;
-            margin-top: 30px;
+            margin-top: 40px;
             position: relative;
             overflow: hidden;
+            text-transform: uppercase;
         }
 
         .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: -150%;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: skewX(-20deg);
-            transition: all 0.7s ease;
+            background: rgba(255, 255, 255, 0.35);
+            transform: skewX(-30deg);
+            transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .cta-button:hover::before {
-            left: 100%;
+            left: 150%;
         }
 
         .cta-button:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.6);
+            background: var(--cta-button-hover-bg);
         }
 
         .secret-message-box {
-            background-color: rgba(0, 0, 0, 0.2);
-            border-left: 3px solid var(--accent-color);
-            padding: 25px;
-            margin-top: 40px;
-            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 5px solid var(--accent-color);
+            padding: 35px;
+            margin-top: 50px;
+            border-radius: 20px;
             text-align: left;
-            font-size: 1.1em;
+            font-size: 1.15em;
             color: var(--secondary-light);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInMessage 1s ease-out forwards;
-            animation-delay: 0.5s;
+            transform: translateY(50px);
+            animation: fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 1s;
             display: none;
+            position: relative;
+        }
+        
+        .secret-message-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGZpbHRlciBpZD0idG9vSmFnZ2VkIiB4PSItMTUwJSIgeT0iLTE1MCUiIHdpZHRoPSIzMDAlIiBoZWlnaHQ9IjMwMCUiPjxmZURpc3BsYWNlbWVudCBpbj0iU291cmNlQWipGhCIgc2NhbGU9IjUiIG51bVRpbGVzPSI1MCIgc3RpdGNoVGlsZXM9InN0aXRjaFBsYWNlIiB0eXBlPSJmcmFjdGFsUHJvYmFiaXN0aWMiIGVuZHM9IjAuNSAwLjUgMC41IDAuNSIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmOGY4ZjgiIGZpbHRlcj0idXJsKCN0b29KYWdnZWQpIi8+PC9zdmc==');
+            background-size: 100px 100px;
+            opacity: 0.08;
+            pointer-events: none;
+            border-radius: 20px;
         }
 
         @keyframes fadeInMessage {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); display: block; }
         }
 
+        .secret-message-box p {
+            font-size: 1.1em;
+            line-height: 1.75;
+            margin-bottom: 18px;
+            color: var(--secondary-light);
+            text-align: left;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        .secret-message-box strong {
+            color: var(--accent-color);
+            text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+        }
+
         .response-section {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            margin-top: 55px;
+            padding-top: 35px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.4);
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInMessage 1s ease-out forwards;
+            transform: translateY(50px);
+            animation: fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             animation-delay: 1.5s;
             display: none;
         }
 
+        .response-section p {
+            text-align: center;
+            font-weight: 600;
+            color: var(--secondary-light);
+            margin-bottom: 30px;
+        }
+
         .response-section textarea {
-            width: calc(100% - 40px);
-            height: 150px;
-            padding: 20px;
+            width: calc(100% - 50px);
+            height: 180px;
+            padding: 25px;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 15px;
             background-color: rgba(0, 0, 0, 0.3);
             color: var(--secondary-light);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1em;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.05em;
             resize: vertical;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.45);
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         .response-section textarea:focus {
             border-color: var(--accent-color);
+            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 182, 193, 0.7);
         }
 
         .response-section button {
-            margin-top: 20px;
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            margin-top: 30px;
+            background: linear-gradient(45deg, #66BB6A, #4CAF50);
             color: white;
-            padding: 14px 30px;
+            padding: 18px 40px;
             border: none;
             border-radius: 50px;
-            font-size: 1.2em;
+            font-size: 1.35em;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            text-transform: uppercase;
         }
 
         .response-section button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
         }
 
         .footer-text {
-            font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 40px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.75);
+            margin-top: 60px;
             letter-spacing: 0.5px;
+            font-weight: 300;
         }
 
         .background-dots {
@@ -229,23 +278,54 @@
 
         .background-dots span {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 182, 193, 0.06);
             border-radius: 50%;
-            animation: moveDots 10s infinite linear;
+            animation: moveDots 20s infinite linear;
             opacity: 0;
         }
 
         @keyframes moveDots {
             0% { transform: translate(var(--x-start), var(--y-start)) scale(0); opacity: 0; }
-            20% { opacity: 0.7; }
-            100% { transform: translate(var(--x-end), var(--y-end)) scale(1.2); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translate(var(--x-end), var(--y-end)) scale(1.8); opacity: 0; }
         }
 
-        .background-dots span:nth-child(1) { --x-start: 10vw; --y-start: 10vh; --x-end: 80vw; --y-end: 90vh; width: 15px; height: 15px; animation-delay: 0s; }
-        .background-dots span:nth-child(2) { --x-start: 90vw; --y-start: 5vh; --x-end: 20vw; --y-end: 85vh; width: 20px; height: 20px; animation-delay: 2s; }
-        .background-dots span:nth-child(3) { --x-start: 30vw; --y-start: 80vh; --x-end: 70vw; --y-end: 10vh; width: 10px; height: 10px; animation-delay: 4s; }
-        .background-dots span:nth-child(4) { --x-start: 5vw; --y-start: 60vh; --x-end: 95vw; --y-end: 20vh; width: 25px; height: 25px; animation-delay: 6s; }
-        .background-dots span:nth-child(5) { --x-start: 70vw; --y-start: 15vh; --x-end: 10vw; --y-end: 70vh; width: 18px; height: 18px; animation-delay: 8s; }
+        .background-dots span:nth-child(1) { --x-start: 10vw; --y-start: 10vh; --x-end: 80vw; --y-end: 90vh; width: 25px; height: 25px; animation-delay: 0s; }
+        .background-dots span:nth-child(2) { --x-start: 90vw; --y-start: 5vh; --x-end: 20vw; --y-end: 85vh; width: 30px; height: 30px; animation-delay: 4s; }
+        .background-dots span:nth-child(3) { --x-start: 30vw; --y-start: 80vh; --x-end: 70vw; --y-end: 10vh; width: 20px; height: 20px; animation-delay: 8s; }
+        .background-dots span:nth-child(4) { --x-start: 5vw; --y-start: 60vh; --x-end: 95vw; --y-end: 20vh; width: 35px; height: 35px; animation-delay: 12s; }
+        .background-dots span:nth-child(5) { --x-start: 70vw; --y-start: 15vh; --x-end: 10vw; --y-end: 70vh; width: 28px; height: 28px; animation-delay: 16s; }
+
+        .emoji {
+            position: fixed;
+            font-size: 2em;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0);
+            animation: flyUpAndFade 2.5s ease-out forwards;
+            z-index: 100;
+            will-change: transform, opacity;
+        }
+
+        @keyframes flyUpAndFade {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1.1);
+            }
+            80% {
+                opacity: 1;
+                transform: translateY(-100px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(0.6);
+            }
+        }
     </style>
 </head>
 <body>
@@ -254,37 +334,38 @@
     </div>
 
     <div class="container" id="mainContainer">
-        <h1>Bilinmeyene Doğru Bir Fısıltı...</h1>
+        <h1>Gerçeklere Doğru Bir Mektup...</h1>
         <p>Bazı duygular kelimelerle ifade edilemez, sadece hissedilir. Ve bazı mesajlar, doğru zamanı bekler.</p>
         <p>Bu, benim sana gönderdiğim, uzaktan da olsa kalbimin bir yankısı. Belki de bir sır, belki de bir davet. Kim bilir?</p>
         <p>Unutma, bazen en değerli şeyler, ilk bakışta görünmeyenlerdir. Derinlere inmekten korkma.</p>
         
         <button class="cta-button" id="revealMessage">
-            Gizemi Ortaya Çıkar
+            Mektubu Aç
         </button>
 
         <div class="secret-message-box" id="secretMessage">
-            <p>Eliz,</p>
-            <p>Direkt söyleyeceğim... Bilmiyorum nasıl oldu ama bir süredir seni düşündüğümde yüzümde bir gülümseme beliriyor. Sanki bir anda her şeyin tonu değişti. Mesajlaşmak, sesini duymak, story atman... hepsi ufak şeyler gibi ama bende büyük yer ediyor.</p>
-            <p>Belki garip gelecek ama başka şehirde olman bile seni daha uzakta hissettirmiyor. Aksine, daha çok merak ediyorum seni. Ne yapıyorsun, nasıl hissediyorsun... Bunları bilmek istiyorum.</p>
-            <p>Bu siteyi hazırladım çünkü bazen sözcükler yetmiyor ya da cesaret edemiyorum. Ama burada daha rahatım. Belki sen de okurken “Bu çocuk gerçekten hissetmiş” dersin.</p>
-            <p>Ve evet... Belki saçma gelir ama: <strong>"Seni düşünmek, dünyanın en güzel şarkısını birdenbire duymak gibi."</strong> Bu cümle benim değil ama his tam olarak bu.</p>
-            <p>İstersen buradan sonra konuşmaya devam ederiz. Belki bir numara, belki bir “merhaba” yeter. Gerisi kendiliğinden olur zaten.</p>
+            <p>Sevgili Eliz,</p>
+            <p>Sana direkt ve içtenlikle yazmak istedim. Bilmiyorum nasıl oldu, ama bir süredir seni düşündüğümde yüzümde sıcacık bir gülümseme beliriyor. Sanki bir anda her şeyin tonu değişti, hayat daha renkli oldu.</p>
+            <p>Mesajlaşmak, sesini duymak, paylaştığın hikayeler... hepsi sanki küçücük detaylar gibi görünebilir, ama benim için çok büyük ve değerli bir yer edinmeye başladı.</p>
+            <p>Belki garip gelecek ama, başka bir şehirde olsan bile seni hiç uzak hissetmiyorum. Aksine, seni daha da merak ediyorum. Günün nasıl geçti, şu an ne hissediyorsun, hayallerin neler... Bunları seninle paylaşmak, senin dünyana daha çok dahil olmak istiyorum.</p>
+            <p>Bu özel sayfayı hazırladım, çünkü bazen kelimeler yetersiz kalır ya da o anki cesaretinle söyleyemezsin. Ama burada, içimden geçenleri çok daha rahat ifade edebiliyorum. Umarım sen de okurken "Bu çocuk gerçekten içten yazmış" dersin.</p>
+            <p>Ve evet... Belki biraz romantik ve saçma gelebilir ama hissettiğim tam olarak bu: <strong>"Seni düşünmek, dünyanın en güzel şarkısını birdenbire duymak gibi."</strong> Bu cümle benim değil, ama şu anki duygumu anlatmaya birebir uyuyor.</p>
+            <p>Eğer sen de istersen, bu mektuptan sonra sohbetimize devam edebiliriz. Belki sadece küçük bir "merhaba" ya da bir numara... Gerisi zaten kendiliğinden gelir, ben eminim.</p>
+            <p>Sevgilerimle,</p>
             <p>- Ahmet</p>
-
         </div>
 
         <div class="response-section" id="responseSection">
-            <p>Bana da bir mektup göndermek ister misin??? (Örn: Numaranı falan yazabilirsin ya.)</p>
+            <p>Bu mektuba sen de bir yanıt vermek ister misin?</p>
             <form id="contactForm" action="https://formspree.io/f/xyzjdpbp" method="POST">
-                <textarea id="elizMessage" name="message" placeholder="Buraya gizemli yanıtını yazabilirsin..."></textarea>
+                <textarea id="elizMessage" name="message" placeholder="Buraya kalbinden geçenleri yazabilirsin..."></textarea>
                 <button type="submit">Mektubumu Gönder</button>
             </form>
-            <p id="successMessage" style="color: #2ecc71; font-weight: 600; margin-top: 15px; display: none;">Mesajın ulaştı! Teşekkür ederim!</p>
-            <p id="errorMessage" style="color: #e74c3c; font-weight: 600; margin-top: 15px; display: none;">Bir şeyler ters gitti. Lütfen tekrar dene.</p>
+            <p id="successMessage" style="color: #66BB6A; font-weight: 600; margin-top: 15px; display: none;">Mektubun kalbime ulaştı! Teşekkür ederim!</p>
+            <p id="errorMessage" style="color: #FF69B4; font-weight: 600; margin-top: 15px; display: none;">Bir şeyler ters gitti gibi... Lütfen tekrar dener misin?</p>
         </div>
 
-        <p class="footer-text">Bu mesaj, yalnızca gözlerin ve kalbin için tasarlandı.</p>
+        <p class="footer-text">Bu mektup, yalnızca senin gözlerin ve kalbin için sevgiyle yazıldı.</p>
     </div>
 
     <script>
@@ -293,34 +374,63 @@
             var responseSection = document.getElementById('responseSection');
             var container = document.getElementById('mainContainer');
 
-            if (secretMessageBox.style.display === 'none' || secretMessageBox.style.display === '') {
+            if (secretMessageBox.style.display === 'none' || secretMessageBox.style.opacity === '0') {
                 secretMessageBox.style.display = 'block';
                 responseSection.style.display = 'block';
+                
+                secretMessageBox.style.animation = 'fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+                responseSection.style.animation = 'fadeInMessage 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 0.7s';
+
                 setTimeout(() => {
                     container.scrollTop = container.scrollHeight;
-                }, 700);
+                }, 2000);
             } else {
                 secretMessageBox.style.display = 'none';
                 responseSection.style.display = 'none';
             }
         });
 
-        // Formspree entegrasyonu
         const form = document.getElementById('contactForm');
         const elizMessageTextarea = document.getElementById('elizMessage');
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
 
+        const emojis = ['❤️', '💖', '✨', '🌸', '💫', '💕'];
+
+        function spawnEmojis() {
+            const count = 15;
+            for (let i = 0; i < count; i++) {
+                const emoji = document.createElement('span');
+                emoji.classList.add('emoji');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+                const startX = Math.random() * window.innerWidth;
+                const startY = window.innerHeight - 50;
+                
+                emoji.style.left = `${startX}px`;
+                emoji.style.top = `${startY}px`;
+                emoji.style.fontSize = `${1.5 + Math.random() * 1.5}em`;
+                emoji.style.animationDelay = `${Math.random() * 0.5}s`;
+
+                document.body.appendChild(emoji);
+
+                emoji.addEventListener('animationend', () => {
+                    emoji.remove();
+                });
+            }
+        }
+
         form.addEventListener('submit', async function (e) {
-            e.preventDefault(); // Varsayılan form gönderimini engelle
+            e.preventDefault();
 
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
+            errorMessage.textContent = '';
 
             const message = elizMessageTextarea.value;
 
             if (message.trim() === '') {
-                errorMessage.textContent = 'Boş mesaj gönderemezsin, Eliz!';
+                errorMessage.textContent = 'Boş bir mektup gönderemezsin, Eliz!';
                 errorMessage.style.display = 'block';
                 return;
             }
@@ -328,27 +438,28 @@
             try {
                 const response = await fetch(form.action, {
                     method: form.method,
-                    body: new FormData(form), // Formspree FormData bekler
+                    body: new FormData(form),
                     headers: {
-                        'Accept': 'application/json' // Formspree'den JSON yanıtı için önemli
+                        'Accept': 'application/json'
                     }
                 });
 
                 if (response.ok) {
                     successMessage.style.display = 'block';
-                    elizMessageTextarea.value = ''; // Metin alanını temizle
+                    elizMessageTextarea.value = '';
+                    spawnEmojis();
                 } else {
                     const data = await response.json();
                     if (data.errors) {
                         errorMessage.textContent = data.errors.map(error => error.message).join(', ');
                     } else {
-                        errorMessage.textContent = 'Mesajını gönderirken bir sorun oluştu. Lütfen tekrar dene!';
+                        errorMessage.textContent = 'Mektubunu gönderirken küçük bir sorun çıktı. Lütfen tekrar dener misin?';
                     }
                     errorMessage.style.display = 'block';
                     console.error('Formspree Hatası:', response.status, data);
                 }
             } catch (error) {
-                errorMessage.textContent = 'Ağ bağlantı hatası! Mesaj gönderilemedi.';
+                errorMessage.textContent = 'Ağ bağlantısı koptu galiba! Mektubun gönderilemedi.';
                 errorMessage.style.display = 'block';
                 console.error('Fetch Hatası:', error);
             }
